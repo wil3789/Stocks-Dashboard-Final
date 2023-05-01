@@ -91,7 +91,7 @@
     function updateDashboard()
     {
       //get alpha vantage url
-      var requestUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + tickers + "&outputsize=full" + "&apikey=" + "ZA7MCBB2Y439DIXR"
+      var requestUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + tickers + "&outputsize=full" + "&apikey=ZA7MCBB2Y439DIXR"
 
        // issuing an HTTP request for the ticker data:
        fetch(requestUrl).then(response => response.json()).then(responseData => {
@@ -168,8 +168,13 @@
                 // processing the specific JSON response data returned by the API server:
                 var tsd = responseData["Time Series (Daily)"]
 
-                var dates = Object.keys(tsd) //> an array of date keys, for the chart ["2020-01-27", "2020-01-24", "2020-01-23", etc.]
-                var prices = Object.values(tsd) //> an array of price objects
+                var selected_tsd = Object.entries(tsd).filter(function(entries)
+                {
+                  return (entries[0] > startDate)
+                })
+
+                var dates=selected_tsd.map(subArray => subArray[0])
+                var prices = selected_tsd.map(subArray => subArray[1])
 
                 var latestDate = dates[0]
                 var earliestDate = dates[dates.length - 1]
