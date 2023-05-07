@@ -11,7 +11,6 @@
 </head>
 
 <body>
-
     <!--
       BOOTSTRAP NAV
       https://getbootstrap.com/docs/5.0/components/navbar/
@@ -28,11 +27,11 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="instructions.html">Instructions</a>
+                    <a class="nav-link active " href="instructions.html">Instructions</a>
                   </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" href="input_form.html">Input Form</a>
+                    <a class="nav-link" href="input_form.html">Input Form</a>
                   </li>
 
                 <li class="nav-item">
@@ -47,26 +46,39 @@
         </div>
       </nav>
 
-      <div class="container" style="max-width: 350px;">
-        <h1>Login</h1>
+<!--
+      BOOTSTRAP FORM
+      https://getbootstrap.com/docs/5.0/forms/overview/
+    -->
 
-        <!--p class="lead mb-3">For existing users.</p-->
-        <p class="lead mb-3">For new or existing users.</p>
+    <form class="mx-auto" style="max-width: 1000px; margin-top:2em;">
+      <h2>Welcome to the Stocks Dashbaord</h2> <hr>
 
-        <div class="d-grid gap-2">
+      <p style="font-size: 24px;">
+        Get historical performance for any stock of your choice, if it is on a major American exchange.
+        Here are the instructions:
+        </p>
 
+        <ul class="instructions-list" style="font-size: 20px;">
+          <li class="step">1. Click on 'Input Form' in the navigation bar
+          <li class="step">2. Input your AlphaVantage API key
+          <li class="step">3. Input the ticker of the stock you want to display
+          <li class="step">4. Select a benchmark from the drop-down menu
+          <li class="step">5. Input the desired start date. This will show performance from the selected date to the present
+          <li class="step">6. (Optional) Select whether you want to display the benchmark performance
+          <li class="step">7. Click the 'Submit' button
+        </ul>
 
-            <a href="/auth/google/login" class="google-login-button btn btn-block position-relative">
-                <span class="google-login-button-wrapper position-absolute top-50 start-0 translate-middle-y">
-                    <img class="google-logo"
-                        src="{{ url_for('static', filename='google-button/rainbow-g-logo.svg') }}"
-                        alt="Rainbow G Logo"
-                    >
-                </span>
+        <hr>
+        <h4>Note: This page is in development. More functionality will be added soon.</h4>
 
-                <span class="google-login-button-text">Login with Google</span>
-            </a>
+    </form>
 
-        </div>
+    <footer style="position: fixed; left: 0; bottom: 1em; width: 100%; ">
+      <hr>
+      &copy; Copyright 2023 Will Boisseau |
+      <a href="https://github.com/wil3789/Stocks-Dashboard">source</a>
+    </footer>
+  </div>
 
 </body>
