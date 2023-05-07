@@ -1,0 +1,7 @@
+
+# ignore Google Cloud service account credentials file:
+google-credentials.json
+*.json
+
+# Environments
+.env

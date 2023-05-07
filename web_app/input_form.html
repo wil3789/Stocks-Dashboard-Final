@@ -38,6 +38,10 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="results.html">Results</a>
                   </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="trade_log.html">Trade Log</a>
+                  </li>
             </ul>
           </div>
         </div>
@@ -114,6 +118,8 @@
               //tickerlist=tickers.split(/[ ,]+/)
 
               var apikeyInput = document.getElementById("my-api-key").value
+              //var apikeyInput =os.getenv(apikeyInput)
+              //var apikeyInput = process.env.API_KEY
               var tickerInput = document.getElementById("my-tickers").value
               var benchmarkInput = document.getElementById("my-benchmark").value
               var dateInput = document.getElementById("my-date").value
