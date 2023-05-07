@@ -1,4 +1,4 @@
-# Stocks-Dashboard
+# Stocks-Dashboard ReadME
 
 Make a copy of the template repository from GitHub. Clone your copy of the repo onto your local computer, for example onto your Desktop.
 
@@ -10,7 +10,7 @@ cd ~/Stocks-Dashboard-Final
 
 Create new virtual environment (first time only):
 
-conda create -n dashboard-env python=3.10
+conda create -n stock-dashboard-env python=3.10
 
 Activate the virtual environment (first time, or whenever you return to the project):
 
