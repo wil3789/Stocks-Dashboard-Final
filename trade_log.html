@@ -70,6 +70,7 @@
     gapi.load('auth2', () => {
         gapi.auth2.init({
           client_id: '111290926202264439662',
+
         }).then(() => {
           console.log('Google Sign-In API initialized');
           // Call functions that require authorization here, such as writing data to Google Sheets

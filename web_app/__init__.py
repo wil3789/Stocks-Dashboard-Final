@@ -65,7 +65,7 @@ def create_app():
     # ROUTES
     #
 
-    app.register_blueprint(home_routes)
+    #app.register_blueprint(home_routes)
     app.register_blueprint(product_routes)
     app.register_blueprint(auth_routes)
     app.register_blueprint(user_routes)
