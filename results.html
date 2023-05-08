@@ -214,11 +214,32 @@
                 // charting the data (see https://plotly.com/javascript/line-charts/):
                 var title = "Daily Closing Prices for Stock: " + benchmark
                 var layout = {title: title, height: 400}
-                var chartData = [
-                    //the chart now references the new array created in line 116
-                    //{x: specifiedDates, y: closingPrices, mode: "lines+markers"}
-                    {x: dates, y: closingPrices, mode: "lines+markers"}
-                ]
+
+
+                 //plot chart according to 'show-%' value
+
+                 if (displayPercent.checked==true)
+                {
+                  const factorArray=[]
+                  for (let i=len-1;i>0;i--)
+                  {
+                    factorArray[len-1]=1
+                    factorArray[i-1]=((closingPrices[i-1]/closingPrices[len-1]))
+                    factorArray[i-1]=factorArray[i-1].toFixed(3)-1
+                  }
+                  factorArray[len-1]=0
+
+                  var chartData = [
+                      //{x: specifiedDates, y: closingPrices, mode: "lines+markers"}
+                      {x: dates, y: factorArray, mode: "lines+markers"}
+                  ]
+                }
+                else{
+                  var chartData = [
+                      //{x: specifiedDates, y: closingPrices, mode: "lines+markers"}
+                      {x: dates, y: closingPrices, mode: "lines+markers"}
+                  ]
+                }
                 Plotly.newPlot("dataviz-container2", chartData, layout, {responsive: true})
 
 
@@ -227,7 +248,6 @@
 
           }
 
-    //updateDashboard()
 
     </script>
 </body>
