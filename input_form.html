@@ -80,8 +80,9 @@
          </div>
 
         <div class="mb-3">
-          <label for="my-time-period" class="form-label">Time Period</label>
-          <input type="date" class="form-control" id="my-date" >
+          <label for="my-time-period" class="form-label">Time Period (1st row: Start, 2nd row: End)</label>
+          <input type="date" class="form-control" id="my-start-date" >
+          <input type="date" class="form-control" id="my-end-date" >
         </div>
 
         <div class="mb-3 form-check">
@@ -95,7 +96,7 @@
       <footer style="position: fixed; left: 0; bottom: 1em; width: 100%; ">
         <hr>
         &copy; Copyright 2023 Will Boisseau |
-        <a href="https://github.com/wil3789/Stocks-Dashboard">source</a>
+        <a href="https://github.com/wil3789/Stocks-Dashboard-Final">source</a>
       </footer>
     </div>
 
@@ -106,7 +107,8 @@
         var displaySymbol = document.getElementById("display-stock-symbol")
         var displayLatestClose = document.getElementById("display-latest-closing-price")
         var displayPeriod=document.getElementById("display-time-period")
-        var displayDate = document.getElementById("my-date")
+        var displayStartDate = document.getElementById("my-start-date")
+        var displayEndDate = document.getElementById("my-end-date")
         var checkbox = document.getElementById ("show-bench")
         var submitButton = document.getElementById("my-button")
 
@@ -122,7 +124,8 @@
               //var apikeyInput = process.env.API_KEY
               var tickerInput = document.getElementById("my-tickers").value
               var benchmarkInput = document.getElementById("my-benchmark").value
-              var dateInput = document.getElementById("my-date").value
+              var startDateInput = document.getElementById("my-start-date").value
+              var endDateInput = document.getElementById("my-end-date").value
 
               if (checkbox.checked==true){
                 var isChecked="true"
@@ -133,8 +136,10 @@
                 }
 
               window.location.href="https://wil3789.github.io/Stocks-Dashboard-Final/results.html?input1="+apikeyInput+"&input2="+tickerInput+"&input3="+benchmarkInput+
-              "&input4="+ dateInput +"&input5="+ isChecked;
+              "&input4="+ startDateInput + "&input5="+ endDateInput +"&input6="+ isChecked;
 
+              //https://wil3789.github.io
+              //file:///C:/Users/Will_Boisseau
 
           console.log("---------------------")
           console.log("FORM SUBMIT...")

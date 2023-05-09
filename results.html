@@ -85,7 +85,8 @@
     var tickers = window.location.search.split("&")[1].split("=")[1]
     var benchmark = window.location.search.split("&")[2].split("=")[1]
     var startDate= window.location.search.split("&")[3].split("=")[1]
-    var benchbool = window.location.search.split("&")[4].split("=")[1]
+    var endDate=window.location.search.split("&")[4].split("=")[1]
+    var benchbool = window.location.search.split("&")[5].split("=")[1]
 
       if (benchbool=="true")
       {
@@ -100,7 +101,7 @@
     function updateDashboard()
     {
       //get alpha vantage url
-      var requestUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + tickers + "&outputsize=full" + "&apikey=ZA7MCBB2Y439DIXR"
+      var requestUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + tickers + "&outputsize=full" + "&apikey="+apikey
 
        // issuing an HTTP request for the ticker data:
        fetch(requestUrl).then(response => response.json()).then(responseData => {
@@ -117,24 +118,22 @@
                 var dates=selected_tsd.map(subArray => subArray[0]) //getting the first value of each subarray nested in the array which is returned above
                 var prices = selected_tsd.map(subArray => subArray[1]) //getting the second value of each subarray nested in the array which is returned above
 
-                var latestDate = dates[0]
-                var earliestDate = dates[dates.length - 1]
+                startDate = dates[dates.length - 1]
 
-                console.log("DATE RANGE:", earliestDate, "-", latestDate)
+                dates = dates.filter(date => date >= startDate && date <= endDate)
+                console.log(dates)
+
+                console.log("DATE RANGE:", startDate, "-", endDate)
 
                 var closingPrices = prices.map(obj => parseFloat(obj["5. adjusted close"])) //> an array of prices, for the chart
                 var latestClose = closingPrices[0]
                 var latestCloseUSD = "$" + latestClose.toFixed(2) // formatting the number with dollar sign and rounding to two decimal places
-
-                console.log(closingPrices)
                 var len = closingPrices.length
-                console.log("the length of closingPrices is "+len + ". The earliest close is "+closingPrices[len-1])
-                console.log("LATEST CLOSE:", latestCloseUSD)
 
                 // updating the contents of the page:
                 displayTickers.innerText = tickers
                 displayLatestClose.innerText = latestCloseUSD
-                displayPeriod.innerText = earliestDate + " to " + latestDate
+                displayPeriod.innerText = startDate + " to " + endDate
                 displayBench.innerText="Not shown"
 
                 // charting the data (see https://plotly.com/javascript/line-charts/):
@@ -178,7 +177,7 @@
 
      function showBench ()
      {
-          var benchUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + benchmark + "&outputsize=full" + "&apikey=" + "ZA7MCBB2Y439DIXR"
+          var benchUrl = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=" + benchmark + "&outputsize=full" + "&apikey=" + apikey
 
             //issuing HTTP request for the benchmark data
             fetch(benchUrl).then(response => response.json()).then(responseData => {
@@ -202,6 +201,7 @@
 
                 var closingPrices = prices.map(obj => parseFloat(obj["5. adjusted close"])) //> an array of prices, for the chart
                 var latestClose = closingPrices[0]
+                var len = closingPrices.length
                 var latestCloseUSD = "$" + latestClose.toFixed(2) // formatting the number with dollar sign and rounding to two decimal places
                 console.log("LATEST CLOSE:", latestCloseUSD)
 
@@ -214,11 +214,35 @@
                 // charting the data (see https://plotly.com/javascript/line-charts/):
                 var title = "Daily Closing Prices for Stock: " + benchmark
                 var layout = {title: title, height: 400}
-                var chartData = [
+                /* var chartData = [
                     //the chart now references the new array created in line 116
                     //{x: specifiedDates, y: closingPrices, mode: "lines+markers"}
                     {x: dates, y: closingPrices, mode: "lines+markers"}
-                ]
+                  ] */
+
+                  if (displayPercent.checked==true)
+                {
+                  const factorArray=[]
+                  for (let i=len-1;i>0;i--)
+                  {
+                    factorArray[len-1]=1
+                    factorArray[i-1]=((closingPrices[i-1]/closingPrices[len-1]))
+                    factorArray[i-1]=factorArray[i-1].toFixed(3)-1
+                  }
+                  factorArray[len-1]=0
+
+                  var chartData = [
+                      //{x: specifiedDates, y: closingPrices, mode: "lines+markers"}
+                      {x: dates, y: factorArray, mode: "lines+markers"}
+                  ]
+                }
+                else{
+                  var chartData = [
+                      //{x: specifiedDates, y: closingPrices, mode: "lines+markers"}
+                      {x: dates, y: closingPrices, mode: "lines+markers"}
+                  ]
+                }
+
                 Plotly.newPlot("dataviz-container2", chartData, layout, {responsive: true})
 
 
